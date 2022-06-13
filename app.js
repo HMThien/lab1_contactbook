@@ -14,12 +14,12 @@ module.exports = app;
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res, next) => {
-return next(new ApiError(404, "Lỗi"));
+    return next(new ApiError(404, "Không tìm thấy"));
 });
 
 app.use((err, req, res, next) => {
     return res.status(err.statusCode || 500).json({
-        message: err.message || "server lỗi"
+        message: err.message || "server lỗi",
     });
 });
 
