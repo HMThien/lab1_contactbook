@@ -2,7 +2,7 @@ const ApiError = require("../routes/api-error");
 const ContactService = require("../services/contact.service");
 const MongoDB = require("../utils/mongodb.util");
 
-exports.create = (req, res, next) => {
+exports.create = async (req, res, next) => {
     if (!req.body?.name) {
         return next(new ApiError(400, "Name is required"));
     }
