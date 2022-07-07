@@ -29,6 +29,11 @@ class ContactService {
         );
         return result.value;
     }
+
+    async find(filter){
+        const cursor = await this.Contact.find(filter);
+        return await cursor.toArray();
+    }
 }
 
 module.exports = ContactService;

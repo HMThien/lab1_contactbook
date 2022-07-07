@@ -10,7 +10,7 @@
 const app = require("./app");
 const config = require("./config");
 const MongoDB = require("./utils/mongodb.util");
-async function stastServer() {
+async function startServer() {
     try {
         await MongoDB.connect(config.db.uri);
         console.log("Ket noi thanh cong den MongoDN")
