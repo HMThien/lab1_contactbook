@@ -1,5 +1,19 @@
-exports.create = (req, res) => {
-    res.send({message: "create handler"});
+const ApiError = require("../routes/api-error");
+const ContactService = require("../services/contact.service");
+const MongoDB = require("../utils/mongodb.util");
+
+exports.create = (req, res, next) => {
+    if (!req.body?.name) {
+        return next(new ApiError(400, "Name is required"));
+    }
+    
+    try{
+        const contactService = new ContactService(MongoDB.client);
+        const document = await contactService.create(req.body);
+        return res.send(document);
+    } catch (error){
+       return next(new ApiError(500, "Cannot create contact"));
+    }
 };
 
 exports.findAll = (req, res) => {
