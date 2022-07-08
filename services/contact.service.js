@@ -21,7 +21,7 @@ class ContactService {
     }
 
     async create(payload) {
-        const contact = this.extractContactData(payload);
+        const contact = await this.extractContactData(payload);
         const result = await this.Contact.findOneAndUpdate(
             contact,
             { $set: {favorite: contact.favorite === true}},
@@ -33,6 +33,12 @@ class ContactService {
     async find(filter){
         const cursor = await this.Contact.find(filter);
         return await cursor.toArray();
+    }
+
+    async findByName(name) {
+        return await this.find({
+            name: { $regex: new RegExp(name), $options: "i" },
+        });
     }
 }
 
